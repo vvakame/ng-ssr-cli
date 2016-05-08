@@ -44,13 +44,36 @@ let root = commandpost
     .action(opts => {
         Promise.resolve(null)
             .then(() => {
-                let templateFile = opts.templateFile[0];
-                let templateHtml = opts.templateHtml[0];
-                let componentFile = opts.componentFile[0];
-                let componentName = opts.componentName[0];
-                let originUrl = opts.originUrl[0];
-                let baseUrl = opts.baseUrl[0];
-                let reqUrl = opts.reqUrl[0];
+                let templateFile = opts.templateFile[0] || "";
+                let templateHtml = opts.templateHtml[0] || "";
+                let componentFile = opts.componentFile[0] || "";
+                let componentName = opts.componentName[0] || "";
+                let originUrl = opts.originUrl[0] || "";
+                let baseUrl = opts.baseUrl[0] || "";
+                let reqUrl = opts.reqUrl[0] || "";
+
+                // remove .js postfix
+                if (componentFile.endsWith(".js")) {
+                    componentFile = componentFile.substr(0, componentFile.length - 3);
+                }
+                // inference componentName from componentFile
+                if (!componentName && componentFile.endsWith(".component")) {
+                    // todo-list.component -> TodoListComponent
+                    componentName = path.basename(componentFile)
+                        .split(".")
+                        .join("-")
+                        .split("-")
+                        .map(str => str.charAt(0).toUpperCase() + str.substr(1))
+                        .join("");
+                }
+                // inference templateFile
+                if (!templateFile && !templateHtml) {
+                    let baseDir = path.dirname(componentFile);
+                    let templateFilePath = path.join(baseDir, "index.html");
+                    if (fs.existsSync(templateFilePath)) {
+                        templateFile = templateFilePath;
+                    }
+                }
 
                 // validation
                 if (!templateFile && !templateHtml) {
