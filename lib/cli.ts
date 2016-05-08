@@ -42,15 +42,17 @@ let root = commandpost
     .option("--reqUrl <reqUrl>", "specify request url", "/")
     .option("--outFile <outFile>", "output file of generated html")
     .action(opts => {
+        let templateFile = opts.templateFile[0] || "";
+        let templateHtml = opts.templateHtml[0] || "";
+        let componentFile = opts.componentFile[0] || "";
+        let componentName = opts.componentName[0] || "";
+        let originUrl = opts.originUrl[0] || "";
+        let baseUrl = opts.baseUrl[0] || "";
+        let reqUrl = opts.reqUrl[0] || "";
+        let outFile = opts.outFile[0];
+
         Promise.resolve(null)
             .then(() => {
-                let templateFile = opts.templateFile[0] || "";
-                let templateHtml = opts.templateHtml[0] || "";
-                let componentFile = opts.componentFile[0] || "";
-                let componentName = opts.componentName[0] || "";
-                let originUrl = opts.originUrl[0] || "";
-                let baseUrl = opts.baseUrl[0] || "";
-                let reqUrl = opts.reqUrl[0] || "";
 
                 // remove .js postfix
                 if (componentFile.endsWith(".js")) {
@@ -112,7 +114,11 @@ let root = commandpost
                 });
             })
             .then(html => {
-                console.log(html);
+                if (outFile) {
+                    fs.writeFileSync(outFile, html);
+                } else {
+                    console.log(html);
+                }
             })
             .catch(errorHandler);
     });
