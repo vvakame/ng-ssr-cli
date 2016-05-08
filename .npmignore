@@ -1,0 +1,27 @@
+.git/
+
+# for IDE
+.vscode/
+
+# for npm
+node_modules/
+npm-shrinkwrap.json
+
+# for dtsm
+typings/
+
+# for https://github.com/Microsoft/TypeScript/issues/4667
+lib/**/*.ts
+!lib/**/*.d.ts
+
+# codes
+test/
+
+# misc
+.gitignore
+.editorconfig
+circle.yml
+setup.sh
+tslint.json
+
+npm-debug.log
