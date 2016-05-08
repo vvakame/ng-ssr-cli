@@ -21,7 +21,7 @@ $ ngssr --help
     --reqUrl <reqUrl>                specify request url
     --outFile <outFile>              output file of generated html
 
-$ ./bin/ngssr --templateHtml "<app>" --componentFile ./example/app.component.js
+$ ngssr --templateHtml "<app>" --componentFile ./example/app.component.js
 <html>
 
 <head>
