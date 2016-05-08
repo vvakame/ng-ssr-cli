@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import {Http} from '@angular/http';
+import { Component } from "@angular/core";
+import { RouteConfig, ROUTER_DIRECTIVES } from "@angular/router-deprecated";
+// import {Http} from "@angular/http";
 
 @Component({
     selector: "app",

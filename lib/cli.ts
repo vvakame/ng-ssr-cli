@@ -14,7 +14,7 @@ if (notifier.update) {
 
 import * as fs from "fs";
 import * as path from "path";
-import {generateHtml, Options} from "./";
+import {generateHtml} from "./";
 
 import * as commandpost from "commandpost";
 
@@ -66,6 +66,7 @@ let root = commandpost
                     return new Error("componentName is required");
                 }
 
+                // prepare generation
                 let html = templateHtml;
                 if (!html) {
                     let templateFilePath = path.join(process.cwd(), templateFile);
@@ -82,9 +83,9 @@ let root = commandpost
                 return generateHtml({
                     templateHtml: html,
                     component: component,
-                    originUrl: opts.originUrl[0],
-                    baseUrl: opts.baseUrl[0],
-                    reqUrl: opts.reqUrl[0],
+                    originUrl: originUrl,
+                    baseUrl: baseUrl,
+                    reqUrl: reqUrl,
                 });
             })
             .then(html => {

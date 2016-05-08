@@ -9,8 +9,8 @@
   "scripts": {
     "postinstall": "dtsm install",
     "build:example": "npm run build && webpack example/index.js example/bundle.js",
-    "build:ts": "tsconfig -u && tsfmt -r && tsc -p ./",
-    "tslint": "tslint ./src/**/*.ts ./test/**/*.ts",
+    "build:ts": "tsconfig -u && tsfmt -r && tsc -p ./ && npm run tslint",
+    "tslint": "tslint ./lib/**/*.ts ./example/**/*.ts",
     "build": "npm run build:ts && npm run tslint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

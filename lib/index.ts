@@ -1,18 +1,16 @@
-import 'angular2-universal/polyfills';
+import "angular2-universal/polyfills";
 
 import {
     provide,
     enableProdMode,
-    expressEngine,
     REQUEST_URL,
     ORIGIN_URL,
     BASE_URL,
     NODE_ROUTER_PROVIDERS,
     NODE_HTTP_PROVIDERS,
-    renderToString,
     Bootloader,
     BootloaderConfig
-} from 'angular2-universal';
+} from "angular2-universal";
 
 export interface Options {
     templateHtml: string;
