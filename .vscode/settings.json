@@ -5,6 +5,9 @@
         "**/.DS_Store": true,
         "lib/**/*.js": { "when": "$(basename).ts" },
         "lib/**/*.js.map": true,
-        "lib/**/*.d.ts": true
+        "lib/**/*.d.ts": true,
+        "example/**/*.js": { "when": "$(basename).ts" },
+        "example/**/*.js.map": true,
+        "example/**/*.d.ts": true
     }
 }

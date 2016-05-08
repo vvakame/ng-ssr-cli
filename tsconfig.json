@@ -23,6 +23,8 @@
     ],
     "files": [
         "example/app.component.ts",
+        "example/cat-list.component.ts",
+        "example/game-list.component.ts",
         "example/index.ts",
         "lib/cli.ts",
         "lib/index.ts",

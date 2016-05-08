@@ -15,17 +15,17 @@ import {
 export interface Options {
     templateHtml: string;
     component: any;
-    originUrl: string; // e.g. http://localhost:8080
-    baseUrl: string;   // e.g. /
-    reqUrl: string;    // e.g. /foo
+    originUrl?: string; // e.g. http://localhost:8080
+    baseUrl?: string;   // e.g. /
+    reqUrl?: string;    // e.g. /foo
 }
 
 export function generateHtml(opts: Options) {
-    opts = Object.assign({}, opts, {
+    opts = Object.assign({
         originUrl: "http://localhost:8080",
         baseUrl: "/",
         reqUrl: "/",
-    });
+    }, opts);
 
     let config: BootloaderConfig = {
         directives: [opts.component],
@@ -33,10 +33,10 @@ export function generateHtml(opts: Options) {
             provide(ORIGIN_URL, { useValue: opts.originUrl }),
             provide(BASE_URL, { useValue: opts.baseUrl }),
         ],
-        providers: [
+        componentProviders: [
             provide(REQUEST_URL, { useValue: opts.reqUrl }),
-            NODE_ROUTER_PROVIDERS,
-            NODE_HTTP_PROVIDERS,
+            ...NODE_ROUTER_PROVIDERS,
+            ...NODE_HTTP_PROVIDERS,
         ],
         beautify: true,
         async: true,
