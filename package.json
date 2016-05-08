@@ -2,6 +2,7 @@
   "name": "ng-ssr-cli",
   "version": "1.0.0",
   "description": "Angular2 server side rendering commandline client.",
+  "preferGlobal": false,
   "bin": {
     "ngssr": "./bin/ngssr"
   },
