@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": true,
+        "removeComments": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "declaration": true,
+        "newLine": "LF",
+        "noEmitOnError": true,
+        "inlineSources": true,
+        "noImplicitReturns": true,
+        "stripInternal": true
+    },
+    "filesGlob": [
+        "./**/*.ts",
+        "./**/*.tsx",
+        "!./**/*.d.ts",
+        "./typings/**/*.d.ts",
+        "!./node_modules/**/*"
+    ],
+    "files": [
+        "example/app.component.ts",
+        "example/index.ts",
+        "lib/cli.ts",
+        "lib/index.ts",
+        "typings/bundle.d.ts",
+        "typings/es6-shim/es6-shim.d.ts",
+        "typings/node/node.d.ts",
+        "typings/update-notifier/update-notifier.d.ts"
+    ]
+}

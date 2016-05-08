@@ -1,0 +1,15 @@
+# misc
+.DS_Store
+typings/
+
+# for npm
+npm-debug.log
+node_modules/
+
+# for grunt
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.d.ts
+example/**/*.js
+example/**/*.js.map
+example/**/*.d.ts
