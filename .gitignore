@@ -1,6 +1,7 @@
 # misc
 .DS_Store
 typings/
+.vscode/.browse.VC.db*
 
 # for npm
 npm-debug.log

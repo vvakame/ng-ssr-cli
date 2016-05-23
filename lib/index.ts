@@ -9,7 +9,7 @@ import {
     NODE_ROUTER_PROVIDERS,
     NODE_HTTP_PROVIDERS,
     Bootloader,
-    BootloaderConfig
+    BootloaderConfig,
 } from "angular2-universal";
 
 export interface Options {
@@ -20,6 +20,8 @@ export interface Options {
     reqUrl?: string;    // e.g. /foo
 }
 
+type CliBootloaderConfig = { document?: any; } & BootloaderConfig;
+
 export function generateHtml(opts: Options) {
     opts = Object.assign({
         originUrl: "http://localhost:8080",
@@ -27,13 +29,13 @@ export function generateHtml(opts: Options) {
         reqUrl: "/",
     }, opts);
 
-    let config: BootloaderConfig = {
+    let config: CliBootloaderConfig = {
         directives: [opts.component],
         platformProviders: [
             provide(ORIGIN_URL, { useValue: opts.originUrl }),
             provide(BASE_URL, { useValue: opts.baseUrl }),
         ],
-        componentProviders: [
+        providers: [
             provide(REQUEST_URL, { useValue: opts.reqUrl }),
             ...NODE_ROUTER_PROVIDERS,
             ...NODE_HTTP_PROVIDERS,
@@ -45,7 +47,7 @@ export function generateHtml(opts: Options) {
 
     enableProdMode();
     let doc = Bootloader.parseDocument(opts.templateHtml);
-    config.document = doc as any;
+    config.document = doc;
     config.template = opts.templateHtml;
     let bootloader = Bootloader.create(config);
     return bootloader.serializeApplication();
