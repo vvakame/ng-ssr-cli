@@ -27,6 +27,7 @@ interface RootOptions {
     baseUrl?: string[];
     reqUrl?: string[];
     outFile?: string[];
+    preboot?: boolean;
 }
 
 let root = commandpost
@@ -41,6 +42,7 @@ let root = commandpost
     .option("--baseUrl <baseUrl>", "specify base url", "/")
     .option("--reqUrl <reqUrl>", "specify request url", "/")
     .option("--outFile <outFile>", "output file of generated html")
+    .option("--preboot", "turn on generating preboot code", false)
     .action(opts => {
         let templateFile = opts.templateFile[0] || "";
         let templateHtml = opts.templateHtml[0] || "";
@@ -50,6 +52,7 @@ let root = commandpost
         let baseUrl = opts.baseUrl[0] || "";
         let reqUrl = opts.reqUrl[0] || "";
         let outFile = opts.outFile[0];
+        let preboot = opts.preboot || false;
 
         Promise.resolve(null)
             .then(() => {
@@ -79,16 +82,16 @@ let root = commandpost
 
                 // validation
                 if (!templateFile && !templateHtml) {
-                    return new Error("templateFile or templateHtml are required");
+                    throw new Error("templateFile or templateHtml are required");
                 }
                 if (templateFile && templateHtml) {
-                    return new Error("templateFile and templateHtml are exclusive");
+                    throw new Error("templateFile and templateHtml are exclusive");
                 }
                 if (!componentFile) {
-                    return new Error("componentFile is required");
+                    throw new Error("componentFile is required");
                 }
                 if (!componentName) {
-                    return new Error("componentName is required");
+                    throw new Error("componentName is required");
                 }
 
                 // prepare generation
@@ -102,7 +105,7 @@ let root = commandpost
                 let m = require(componentFilePath);
                 let component = m[componentName];
                 if (!component) {
-                    return new Error(`require("${componentFile}")["${componentName}"] is not defined`);
+                    throw new Error(`require("${componentFile}")["${componentName}"] is not defined`);
                 }
 
                 return generateHtml({
@@ -111,6 +114,7 @@ let root = commandpost
                     originUrl: originUrl,
                     baseUrl: baseUrl,
                     reqUrl: reqUrl,
+                    preboot: preboot,
                 });
             })
             .then(html => {

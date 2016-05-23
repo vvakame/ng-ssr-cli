@@ -22,7 +22,7 @@
     "tslint": "tslint ./lib/**/*.ts ./example/**/*.ts",
     "build": "npm run build:ts && npm run tslint",
     "start": "live-server example",
-    "run-ngssr": "./bin/ngssr --componentFile ./example/app.component.js --reqUrl '/cat'",
+    "run-ngssr": "./bin/ngssr --preboot --componentFile ./example/app.component.js --reqUrl '/cat'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "directories": {

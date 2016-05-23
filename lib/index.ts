@@ -18,15 +18,29 @@ export interface Options {
     originUrl?: string; // e.g. http://localhost:8080
     baseUrl?: string;   // e.g. /
     reqUrl?: string;    // e.g. /foo
+    preboot?: boolean | PrebootConfig;
+}
+
+// Config for https://github.com/angular/universal/blob/master/modules/universal/src/node/ng_preboot.ts
+// https://github.com/angular/universal/blob/master/modules/preboot/src/interfaces/preboot_options.ts
+export interface PrebootConfig {
+    appRoot?: string;
+    start?: boolean;
+    replay?: "rerender" | "hydrate";
+    buffer?: boolean;
+    debug?: boolean;
+    uglify?: boolean;
+    presets?: string[];
 }
 
 type CliBootloaderConfig = { document?: any; } & BootloaderConfig;
 
-export function generateHtml(opts: Options) {
+export function generateHtml(opts: Options): Promise<string> {
     opts = Object.assign({
         originUrl: "http://localhost:8080",
         baseUrl: "/",
         reqUrl: "/",
+        preboot: false,
     }, opts);
 
     let config: CliBootloaderConfig = {
@@ -42,13 +56,14 @@ export function generateHtml(opts: Options) {
         ],
         beautify: true,
         async: true,
-        preboot: false,
     };
 
     enableProdMode();
     let doc = Bootloader.parseDocument(opts.templateHtml);
     config.document = doc;
     config.template = opts.templateHtml;
-    let bootloader = Bootloader.create(config);
+    config.preboot = opts.preboot;
+
+    let bootloader = new Bootloader(config);
     return bootloader.serializeApplication();
 }
