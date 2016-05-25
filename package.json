@@ -16,11 +16,11 @@
   },
   "homepage": "https://github.com/vvakame/ng-ssr-cli#readme",
   "scripts": {
-    "postinstall": "dtsm install",
+    "setup": "dtsm install",
     "build:example": "npm run build && webpack example/index.js example/bundle.js",
     "build:ts": "tsconfig -u && tsfmt -r && tsc -p ./ && npm run tslint",
     "tslint": "tslint ./lib/**/*.ts ./example/**/*.ts",
-    "build": "npm run build:ts && npm run tslint",
+    "build": "npm run setup && npm run build:ts && npm run tslint",
     "start": "live-server example",
     "run-ngssr": "./bin/ngssr --preboot --componentFile ./example/app.component.js --reqUrl '/cat'",
     "test": "echo \"Error: no test specified\" && exit 1"
