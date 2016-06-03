@@ -44,26 +44,26 @@ export function generateHtml(opts: Options): Promise<string> {
     }, opts);
 
     let config: CliBootloaderConfig = {
-        directives: [opts.component],
         platformProviders: [
             provide(ORIGIN_URL, { useValue: opts.originUrl }),
             provide(BASE_URL, { useValue: opts.baseUrl }),
-        ],
-        providers: [
-            provide(REQUEST_URL, { useValue: opts.reqUrl }),
-            ...NODE_ROUTER_PROVIDERS,
-            ...NODE_HTTP_PROVIDERS,
         ],
         beautify: true,
         async: true,
     };
 
     enableProdMode();
-    let doc = Bootloader.parseDocument(opts.templateHtml);
-    config.document = doc;
-    config.template = opts.templateHtml;
+
     config.preboot = opts.preboot;
 
     let bootloader = new Bootloader(config);
-    return bootloader.serializeApplication();
+    return bootloader.serializeApplication({
+        directives: [opts.component],
+        template: opts.templateHtml,
+        providers: [
+            provide(REQUEST_URL, { useValue: opts.reqUrl }),
+            ...NODE_ROUTER_PROVIDERS,
+            ...NODE_HTTP_PROVIDERS,
+        ]
+    });
 }
